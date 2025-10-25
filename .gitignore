@@ -1,0 +1,10 @@
+# Base de Datos
+.env
+
+# Dependencias
+node_modules
+git
+
+# Logs
+npm-debug.log
+yarn-error.log
