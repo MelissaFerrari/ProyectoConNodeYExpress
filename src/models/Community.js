@@ -1,9 +1,7 @@
 const { DataTypes } = require ('sequelize');
-
 const sequelize = require ("./sequelize");
 
-const Comunidades = sequelize.define('comunidades',
-    {
+const Comunidad = sequelize.define('Comunidad', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -11,7 +9,8 @@ const Comunidades = sequelize.define('comunidades',
   },
   nombre: {
     type: DataTypes.STRING(100),
-    allowNull: false  //no permite nulos (este dato es obligatorio)
+    allowNull: false,
+    unique: true
   },
   descripcion: {
     type: DataTypes.TEXT,
@@ -26,9 +25,11 @@ const Comunidades = sequelize.define('comunidades',
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'comunidades', // nombre exacto de la tabla
-  timestamps: false          // desactiva createdAt/updatedAt automáticos
+  tableName: 'comunidades', // 👈 nombre exacto de la tabla en MySQL
+  timestamps: false          // evita que Sequelize agregue createdAt / updatedAt
 });
 
+// 🔹 Relación: una comunidad pertenece a un usuario (su creador)
+/// Comunidad.belongsTo(Usuario, { foreignKey: 'creador_id', as: 'creador' });
 
-module.exports = Comunidades;
+module.exports = Comunidad;
