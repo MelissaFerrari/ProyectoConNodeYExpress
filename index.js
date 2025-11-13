@@ -11,10 +11,27 @@ const sequelize = require('./config/database');
 // Middleware para parsear JSON
 app.use(express.json());
 
+// 🔹 Importar rutas de autenticación
+const authRoutes = require('./src/routes/authRoutes');
+
 // Ruta de prueba
 app.get('/', (req, res) => {
   res.send('Servidor Express conectado a MySQL con Sequelize 🚀');
 });
+
+// Rutas
+const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const communityRoutes = require('./src/routes/communityRoutes');
+const postRoutes = require('./src/routes/postRoutes');
+const commentRoutes = require('./src/routes/commentRoutes');
+
+// Montar rutas
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/communities', communityRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
 
 // Iniciar el servidor y probar conexión a la base de datos
 app.listen(PORT, async () => {
@@ -26,3 +43,4 @@ app.listen(PORT, async () => {
   }
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
