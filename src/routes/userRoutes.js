@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+
 const {
   getAllUsuarios,
   getUsuarioById,
   createUsuario,
   updateUsuario,
   deleteUsuario
-} = require('../controllers/usuarios.controller');
+} = require('../controllers/userController');
 
 // Rutas CRUD
 router.get('/', getAllUsuarios);
