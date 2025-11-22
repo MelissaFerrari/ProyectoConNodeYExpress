@@ -8,15 +8,16 @@ const PORT = 3000;
 // Importar conexión a la base de datos
 const sequelize = require('./config/database');
 
-// Middleware para parsear JSON
+// 🔥 Middleware para parsear JSON (TIENE QUE IR ARRIBA)
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Importar rutas
 const userRoutes = require('./src/routes/userRoutes');
 const postRoutes = require('./src/routes/postRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
 const communityRoutes = require('./src/routes/communityRoutes');
-
+const authRoutes = require('./src/routes/authRoutes');
 
 // Ruta de prueba
 app.get('/', (req, res) => {
@@ -28,6 +29,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/communities', communityRoutes);
+app.use('/api/auth', authRoutes);
 
 // Iniciar servidor
 app.listen(PORT, async () => {
