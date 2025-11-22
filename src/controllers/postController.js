@@ -1,56 +1,77 @@
-import { Post } from '../models/Post.js';
+const Publicacion = require('../models/Post');
 
 // Obtener todas las publicaciones
-export const getAllPosts = async (req, res) => {
+exports.getAllPosts = async (req, res) => {
   try {
-    const publicaciones = await Post.findAll();
-    res.json(publicaciones);
+    const posts = await Publicacion.findAll();
+    res.json(posts);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las publicaciones' });
+    res.status(500).json({ error: 'Error al obtener publicaciones', detalle: error.message });
   }
 };
 
-// Obtener una publicación por ID
-export const getPostById = async (req, res) => {
+// Obtener publicación por ID
+exports.getPostById = async (req, res) => {
   try {
-    const publicacion = await Post.findByPk(req.params.id);
-    if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
-    res.json(publicacion);
+    const post = await Publicacion.findByPk(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Publicación no encontrada' });
+    }
+
+    res.json(post);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener la publicación' });
+    res.status(500).json({ error: 'Error al obtener publicación', detalle: error.message });
   }
 };
 
-// Crear una nueva publicación
-export const createPost = async (req, res) => {
+// Crear nueva publicación
+exports.createPost = async (req, res) => {
   try {
-    const nuevaPublicacion = await Post.create(req.body);
-    res.status(201).json(nuevaPublicacion);
+    const { contenido, usuario_id, comunidad_id } = req.body;
+
+    const nuevaPost = await Publicacion.create({
+      contenido,
+      usuario_id,
+      comunidad_id
+    });
+
+    res.status(201).json(nuevaPost);
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear la publicación' });
+    res.status(500).json({ error: 'Error al crear publicación', detalle: error.message });
   }
 };
 
-// Actualizar una publicación
-export const updatePost = async (req, res) => {
+// Actualizar publicación
+exports.updatePost = async (req, res) => {
   try {
-    const publicacion = await Post.findByPk(req.params.id);
-    if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
-    await publicacion.update(req.body);
-    res.json(publicacion);
+    const post = await Publicacion.findByPk(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Publicación no encontrada' });
+    }
+
+    await post.update(req.body);
+
+    res.json(post);
   } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar la publicación' });
+    res.status(500).json({ error: 'Error al actualizar publicación', detalle: error.message });
   }
 };
 
-// Eliminar una publicación
-export const deletePost = async (req, res) => {
+// Eliminar publicación
+exports.deletePost = async (req, res) => {
   try {
-    const publicacion = await Post.findByPk(req.params.id);
-    if (!publicacion) return res.status(404).json({ error: 'Publicación no encontrada' });
-    await publicacion.destroy();
+    const post = await Publicacion.findByPk(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Publicación no encontrada' });
+    }
+
+    await post.destroy();
+
     res.json({ mensaje: 'Publicación eliminada correctamente' });
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar la publicación' });
+    res.status(500).json({ error: 'Error al eliminar publicación', detalle: error.message });
   }
 };

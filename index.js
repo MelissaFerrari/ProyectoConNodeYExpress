@@ -13,6 +13,10 @@ app.use(express.json());
 
 // Importar rutas
 const userRoutes = require('./src/routes/userRoutes');
+const postRoutes = require('./src/routes/postRoutes');
+const commentRoutes = require('./src/routes/commentRoutes');
+const communityRoutes = require('./src/routes/communityRoutes');
+
 
 // Ruta de prueba
 app.get('/', (req, res) => {
@@ -21,6 +25,9 @@ app.get('/', (req, res) => {
 
 // Montar rutas
 app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/communities', communityRoutes);
 
 // Iniciar servidor
 app.listen(PORT, async () => {
