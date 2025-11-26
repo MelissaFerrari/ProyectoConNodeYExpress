@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/authMiddleware');
+
 
 const {
   getAllPosts,
@@ -12,7 +14,7 @@ const {
 // Rutas CRUD
 router.get('/', getAllPosts);
 router.get('/:id', getPostById);
-router.post('/', createPost);
+router.post('/', auth, createPost);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
 
