@@ -1,6 +1,7 @@
 // routes/communityRoutes.js
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middleware/authMiddleware");
 
 const {
   getAllComunidades,
@@ -10,12 +11,13 @@ const {
   deleteComunidad,
 } = require("../controllers/communityController");
 
-// Rutas CRUD
+// Rutas públicas
 router.get("/", getAllComunidades);
 router.get("/:id", getComunidadById);
-router.post("/", createComunidad);
-router.put("/:id", updateComunidad);
-router.delete("/:id", deleteComunidad);
+
+// Rutas protegidas con JWT
+router.post("/", authMiddleware, createComunidad);
+router.put("/:id", authMiddleware, updateComunidad);
+router.delete("/:id", authMiddleware, deleteComunidad);
 
 module.exports = router;
-

@@ -35,6 +35,6 @@ const Comunidad = sequelize.define(
 );
 
 // Relaciones opcionales
-// Comunidad.belongsTo(Usuario, { foreignKey: "creador_id", as: "creador" });
+Comunidad.belongsTo(Usuario, { foreignKey: "creador_id", as: "creador" });
 
 module.exports = Comunidad;
