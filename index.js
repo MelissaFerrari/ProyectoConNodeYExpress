@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors'); 
 require('dotenv').config();
 
 // Puerto
@@ -9,6 +10,7 @@ const PORT = 3000;
 const sequelize = require('./config/database');
 
 // 🔥 Middleware para parsear JSON (TIENE QUE IR ARRIBA)
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
