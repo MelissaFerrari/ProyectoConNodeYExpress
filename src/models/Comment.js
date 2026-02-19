@@ -33,9 +33,6 @@ const Comentario = sequelize.define(
   }
 );
 
-// Aquí luego podrás agregar las relaciones:
-// Comentario.belongsTo(Usuario, { foreignKey: "usuario_id" });
-// Comentario.belongsTo(Publicacion, { foreignKey: "publicacion_id" });
 
 module.exports = Comentario;
 

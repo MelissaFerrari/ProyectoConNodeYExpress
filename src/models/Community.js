@@ -1,7 +1,6 @@
 // src/models/Community.js
 const { DataTypes } = require("sequelize");
 const sequelize = require("./sequelize"); // ✅ misma carpeta
-const Usuario = require("./User");       // ✅ misma carpeta
 
 const Comunidad = sequelize.define(
   "Comunidad",
@@ -18,7 +17,6 @@ const Comunidad = sequelize.define(
   }
 );
 
-// Asociación: cada comunidad pertenece a un usuario creador
-Comunidad.belongsTo(Usuario, { foreignKey: "creador_id", as: "creador" });
+
 
 module.exports = Comunidad;
