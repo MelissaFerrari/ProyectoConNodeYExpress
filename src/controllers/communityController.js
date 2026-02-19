@@ -1,5 +1,10 @@
 // controllers/communityController.js
 const Comunidad = require("../models/Community");
+const Publicacion = require("../models/Post");
+const Comentario = require("../models/Comment");
+const Usuario = require("../models/User");
+
+
 
 // Obtener todas las comunidades (público)
 exports.getAllComunidades = async (req, res) => {
@@ -8,6 +13,47 @@ exports.getAllComunidades = async (req, res) => {
     res.json(comunidades);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener comunidades", detalle: error.message });
+  }
+};
+
+exports.getComunidadFull = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const comunidad = await Comunidad.findByPk(id, {
+      include: [
+        {
+          model: Publicacion,
+          as: "publicaciones",
+          include: [
+            {
+              model: Usuario,
+              as: "usuario",
+              attributes: ["id", "nombre_usuario"],
+            },
+            {
+              model: Comentario,
+              as: "comentarios",
+              include: [
+                {
+                  model: Usuario,
+                  as: "usuario",
+                  attributes: ["id", "nombre_usuario"],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!comunidad) {
+      return res.status(404).json({ message: "Comunidad no encontrada" });
+    }
+        res.json(comunidad);
+  } catch (error) {
+    console.error("Error en getComunidadFull:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
   }
 };
 
