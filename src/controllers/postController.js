@@ -68,6 +68,11 @@ exports.deletePost = async (req, res) => {
       return res.status(404).json({ error: 'Publicación no encontrada' });
     }
 
+// Validación de ownership
+    if (post.usuario_id !== req.user.id) {
+      return res.status(403).json({ error: "No autorizado" });
+    }
+
     await post.destroy();
 
     res.json({ mensaje: 'Publicación eliminada correctamente' });

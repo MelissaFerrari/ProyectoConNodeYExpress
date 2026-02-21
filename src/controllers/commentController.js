@@ -77,6 +77,11 @@ exports.deleteComentario = async (req, res) => {
       return res.status(404).json({ error: "Comentario no encontrado" });
     }
 
+// Validación de ownership
+    if (comentario.usuario_id !== req.user.id) {
+      return res.status(403).json({ error: "No autorizado" });
+    }
+
     await comentario.destroy();
 
     res.json({ mensaje: "Comentario eliminado correctamente" });
