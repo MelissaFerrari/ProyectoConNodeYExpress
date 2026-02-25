@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Datos de conexión
-const sequelize = new Sequelize('discord_sencillo', 'root', 'mkdir', {
+const sequelize = new Sequelize('discord_sencillo', 'root', 'root', {
   host: 'localhost',
   dialect: 'mysql',
   logging: false, // desactiva logs de SQL en consola (opcional)
