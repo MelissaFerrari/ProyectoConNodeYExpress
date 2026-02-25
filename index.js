@@ -13,7 +13,7 @@ const sequelize = require('./config/database');
 
 // 🔥 Middleware para parsear JSON (TIENE QUE IR ARRIBA)
 app.use(cors({
-  origin: 'https://proyectoreact-production.up.railway.app'
+  origin: '*'
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
