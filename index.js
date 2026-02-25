@@ -9,7 +9,7 @@ require("./src/models/asociaciones");
 const PORT = process.env.PORT || 3000;
 
 // Importar conexión a la base de datos
-const sequelize = require('./config/database');
+const sequelize = require('./src/models/sequelize');
 
 // 🔥 Middleware para parsear JSON (TIENE QUE IR ARRIBA)
 app.use(cors({
