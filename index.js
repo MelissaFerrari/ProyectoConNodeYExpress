@@ -42,7 +42,7 @@ app.listen(PORT, async () => {
   try {
     await sequelize.authenticate();
     console.log('✅ Conexión exitosa con la base de datos MySQL');
-    await sequelize.sync({ alter: false });
+    await sequelize.sync({ alter: true });
     console.log('✅ Tablas sincronizadas correctamente');
   } catch (error) {
     console.error('❌ Error al conectar con la base de datos:', error);
