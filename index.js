@@ -6,7 +6,7 @@ require('dotenv').config();
 require("./src/models/asociaciones");
 
 // Puerto
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Importar conexión a la base de datos
 const sequelize = require('./config/database');
